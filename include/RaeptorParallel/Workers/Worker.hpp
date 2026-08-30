@@ -1,6 +1,7 @@
 #pragma once
 #include <RaeptorParallel/Jobs/Job.hpp>
 #include <algorithm>
+#include <chrono>
 #include <functional>
 #include <map>
 #include <memory>
