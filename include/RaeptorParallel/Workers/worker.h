@@ -8,13 +8,20 @@
 #include <stdbool.h>
 #include <time.h>
 
-typedef struct worker {
+typedef struct RaeptorParallel_worker {
   /**
    * @brief Flag indicating whether the worker is running.
    *
    * Used to control the main loop of the worker thread.
    */
   bool running;
+
+  /**
+   * @brief Flag indicating whether the current job is detached.
+   *
+   * Used to manage the lifecycle of jobs and ensure proper cleanup.
+   */
+  bool current_job_detached;
 
   /**
    * @brief Thread object for the worker.
@@ -35,19 +42,23 @@ typedef struct worker {
    *
    * Each priority level maps to a vector of job functions.
    */
-  RaeptorContainers_rbtree(int, RaeptorContainers_darray(job_t *)) jobs;
-} worker_t;
+  RaeptorContainers_rbtree(
+      int, RaeptorContainers_darray(RaeptorParallel_job_t *)) jobs;
+} RaeptorParallel_worker_t;
 
-static inline void worker_init(worker_t *worker, pthread_t thread) {
+static inline void RaeptorParallel_worker_init(RaeptorParallel_worker_t *worker,
+                                               pthread_t thread) {
   worker->running = false;
   worker->worker_thread = thread;
   pthread_mutex_init(&worker->mtx, NULL);
   RaeptorContainers_rbtree_init(&worker->jobs);
 }
 
-static inline worker_t *worker_create(pthread_t thread) {
-  worker_t *worker = malloc(sizeof(worker_t));
-  worker_init(worker, thread);
+static inline RaeptorParallel_worker_t *
+RaeptorParallel_worker_create(pthread_t thread) {
+  RaeptorParallel_worker_t *worker =
+      (RaeptorParallel_worker_t *)malloc(sizeof(RaeptorParallel_worker_t));
+  RaeptorParallel_worker_init(worker, thread);
   return worker;
 }
 
@@ -56,18 +67,21 @@ static inline worker_t *worker_create(pthread_t thread) {
  *
  * Continuously executes jobs while the worker is running.
  */
-static inline void worker_run(worker_t *worker) {
+static inline void
+RaeptorParallel_worker_run(RaeptorParallel_worker_t *worker) {
+  worker->current_job_detached = false;
   while (worker->running) {
-    job_t *job = NULL;
+    RaeptorParallel_job_t *job = NULL;
     int priority;
     pthread_mutex_lock(&worker->mtx);
     if (!RaeptorContainers_rbtree_empty(&worker->jobs)) {
-      time_t now = time_ms();
+      time_t now = RaeptorParallel_time_ms();
       RaeptorContainers_rbtree_foreach(&worker->jobs, node, {
         if (!RaeptorContainers_darray_empty(&node->value)) {
-          job_t *next_job = RaeptorContainers_darray_front(&node->value);
-          if (now - job_get_last_execution_time(next_job) >=
-              job_get_interval(next_job)) {
+          RaeptorParallel_job_t *next_job =
+              RaeptorContainers_darray_front(&node->value);
+          if (now - RaeptorParallel_job_get_last_execution_time(next_job) >=
+              RaeptorParallel_job_get_interval(next_job)) {
             job = next_job;
             priority = node->key;
             RaeptorContainers_darray_remove(&node->value, 0);
@@ -82,8 +96,8 @@ static inline void worker_run(worker_t *worker) {
     }
     pthread_mutex_unlock(&worker->mtx);
     if (job) {
-      if (job_get_repeat_count(job)) {
-        job_update_last_execution_time(job);
+      if (RaeptorParallel_job_get_repeat_count(job)) {
+        RaeptorParallel_job_update_last_execution_time(job);
         auto node = RaeptorContainers_rbtree_search(&worker->jobs, priority);
         if (!node) {
           __typeof__(worker->jobs.root->value) new_array = {0};
@@ -93,10 +107,15 @@ static inline void worker_run(worker_t *worker) {
         RaeptorContainers_darray_push(&node->value, job);
       }
       job->execute();
-      if (job_get_repeat_count(job) == 0) {
-        job_detach(&job);
-      } else if (job_get_repeat_count(job) > 0)
-        job_set_repeat_count(job, job_get_repeat_count(job) - 1);
+      if (worker->current_job_detached) {
+        worker->current_job_detached = false;
+        continue;
+      }
+      if (RaeptorParallel_job_get_repeat_count(job) == 0) {
+        RaeptorParallel_job_detach(&job);
+      } else if (RaeptorParallel_job_get_repeat_count(job) > 0)
+        RaeptorParallel_job_set_repeat_count(
+            job, RaeptorParallel_job_get_repeat_count(job) - 1);
     } else {
       if (worker->worker_thread == pthread_self() &&
           RaeptorContainers_rbtree_empty(&worker->jobs)) {
@@ -114,8 +133,8 @@ static inline void worker_run(worker_t *worker) {
  *
  * This function is used as the entry point for the worker thread.
  */
-static inline void *worker_thread(void *arg) {
-  worker_run(arg);
+static inline void *RaeptorParallel_worker_thread(void *arg) {
+  RaeptorParallel_worker_run(arg);
   return NULL;
 }
 
@@ -124,15 +143,17 @@ static inline void *worker_thread(void *arg) {
  *
  * Initializes and begins execution of the worker thread.
  */
-static inline void worker_start(worker_t *worker) {
+static inline void
+RaeptorParallel_worker_start(RaeptorParallel_worker_t *worker) {
   worker->running = true;
   // Check if workerThread is not pthread_self() to avoid deadlock when calling
   // start from the worker thread itself
   if (worker->worker_thread && pthread_self() == worker->worker_thread) {
-    worker_run(worker);
+    RaeptorParallel_worker_run(worker);
     return;
   }
-  pthread_create(&worker->worker_thread, NULL, worker_thread, worker);
+  pthread_create(&worker->worker_thread, NULL, RaeptorParallel_worker_thread,
+                 worker);
 }
 
 /**
@@ -140,8 +161,10 @@ static inline void worker_start(worker_t *worker) {
  *
  * Signals the worker thread to terminate and waits for it to finish.
  */
-static inline void worker_stop(worker_t *worker) {
+static inline void
+RaeptorParallel_worker_stop(RaeptorParallel_worker_t *worker) {
   worker->running = false;
+  worker->current_job_detached = true;
   if (worker->worker_thread && pthread_self() != worker->worker_thread) {
     pthread_join(worker->worker_thread, NULL);
   }
@@ -150,8 +173,9 @@ static inline void worker_stop(worker_t *worker) {
 /**
  * @brief Default constructor for Worker.
  */
-static inline void worker_free(worker_t *worker) {
-  worker_stop(worker);
+static inline void
+RaeptorParallel_worker_free(RaeptorParallel_worker_t *worker) {
+  RaeptorParallel_worker_stop(worker);
   RaeptorContainers_rbtree_foreach(
       &worker->jobs, node, { RaeptorContainers_darray_free(&node->value); });
   RaeptorContainers_rbtree_free(&worker->jobs);
@@ -163,7 +187,8 @@ static inline void worker_free(worker_t *worker) {
  *
  * @return true if the worker is running, false otherwise.
  */
-static inline bool worker_is_running(worker_t *worker) {
+static inline bool
+RaeptorParallel_worker_is_running(RaeptorParallel_worker_t *worker) {
   return worker->running;
 }
 
@@ -173,7 +198,9 @@ static inline bool worker_is_running(worker_t *worker) {
  * @param job The job to check for in the scheduled jobs.
  * @return true if the job is scheduled, false otherwise.
  */
-static inline bool worker_is_job_scheduled(worker_t *worker, job_t *job) {
+static inline bool
+RaeptorParallel_worker_is_job_scheduled(RaeptorParallel_worker_t *worker,
+                                        RaeptorParallel_job_t *job) {
   pthread_mutex_lock(&worker->mtx);
   bool found = false;
   RaeptorContainers_rbtree_foreach(&worker->jobs, node, {
@@ -199,7 +226,9 @@ static inline bool worker_is_job_scheduled(worker_t *worker, job_t *job) {
  *
  * @note Jobs with higher priority values are executed first.
  */
-static inline void worker_add_job(worker_t *worker, job_t *job, int priority) {
+static inline void
+RaeptorParallel_worker_add_job(RaeptorParallel_worker_t *worker,
+                               RaeptorParallel_job_t *job, int priority) {
   pthread_mutex_lock(&worker->mtx);
   auto node = RaeptorContainers_rbtree_search(&worker->jobs, priority);
   if (!node) {
@@ -207,7 +236,7 @@ static inline void worker_add_job(worker_t *worker, job_t *job, int priority) {
     RaeptorContainers_rbtree_insert(&worker->jobs, priority, new_array);
     node = RaeptorContainers_rbtree_search(&worker->jobs, priority);
   }
-  job_attach(job);
+  RaeptorParallel_job_attach(job);
   RaeptorContainers_darray_push(&node->value, job);
   pthread_mutex_unlock(&worker->mtx);
 }
@@ -219,7 +248,9 @@ static inline void worker_add_job(worker_t *worker, job_t *job, int priority) {
  *
  * @note This will remove all instances of the specified job from the worker.
  */
-static inline void worker_remove_job(worker_t *worker, job_t *job) {
+static inline void
+RaeptorParallel_worker_remove_job(RaeptorParallel_worker_t *worker,
+                                  RaeptorParallel_job_t *job) {
   pthread_mutex_lock(&worker->mtx);
   RaeptorContainers_rbtree_foreach(&worker->jobs, node, {
     int new_count = 0;
@@ -227,7 +258,8 @@ static inline void worker_remove_job(worker_t *worker, job_t *job) {
       if (node->value.items[i] != job) {
         node->value.items[new_count++] = node->value.items[i];
       } else {
-        job_detach(&job);
+        RaeptorParallel_job_detach(&job);
+        worker->current_job_detached = true;
       }
     };
     node->value.count = new_count;
@@ -245,12 +277,16 @@ static inline void worker_remove_job(worker_t *worker, job_t *job) {
  *
  * @note This removes all jobs without executing them.
  */
-static inline void worker_clear_jobs(worker_t *worker) {
+static inline void
+RaeptorParallel_worker_clear_jobs(RaeptorParallel_worker_t *worker) {
   pthread_mutex_lock(&worker->mtx);
-  RaeptorContainers_rbtree_foreach(
-      &worker->jobs, node, { RaeptorContainers_darray_free(&node->value); });
+  RaeptorContainers_rbtree_foreach(&worker->jobs, node, {
+    RaeptorContainers_darray_foreach(&node->value, i, val,
+                                     { RaeptorParallel_job_detach(&val); });
+    RaeptorContainers_darray_free(&node->value);
+  });
   RaeptorContainers_rbtree_free(&worker->jobs);
   worker->jobs.root = NULL;
   pthread_mutex_unlock(&worker->mtx);
-  worker_stop(worker);
+  RaeptorParallel_worker_stop(worker);
 }

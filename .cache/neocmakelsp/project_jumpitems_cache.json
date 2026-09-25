@@ -1,0 +1,515 @@
+{
+  "date": "2026-09-24T16:20:42.806176315+02:00",
+  "data": {
+    "absInstallDir": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 476,
+            "character": 8
+          },
+          "end": {
+            "line": 476,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "CVF_ARCH_INDEPENDENT_CHECK": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+        "range": {
+          "start": {
+            "line": 56,
+            "character": 8
+          },
+          "end": {
+            "line": 56,
+            "character": 34
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+      "is_function": false
+    },
+    "_branch_INIT": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 588,
+            "character": 8
+          },
+          "end": {
+            "line": 588,
+            "character": 20
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_compatibilityTemplate": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+        "range": {
+          "start": {
+            "line": 39,
+            "character": 8
+          },
+          "end": {
+            "line": 39,
+            "character": 30
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+      "is_function": false
+    },
+    "_multi": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 622,
+            "character": 6
+          },
+          "end": {
+            "line": 622,
+            "character": 12
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "maybe_INSTALL_PREFIX": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 635,
+            "character": 8
+          },
+          "end": {
+            "line": 635,
+            "character": 28
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_else": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 591,
+            "character": 6
+          },
+          "end": {
+            "line": 591,
+            "character": 11
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "versionTemplateFile": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+        "range": {
+          "start": {
+            "line": 42,
+            "character": 6
+          },
+          "end": {
+            "line": 42,
+            "character": 25
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+      "is_function": false
+    },
+    "_branch_${_opt}": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 602,
+            "character": 10
+          },
+          "end": {
+            "line": 602,
+            "character": 25
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "arch": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 678,
+            "character": 8
+          },
+          "end": {
+            "line": 678,
+            "character": 12
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "config_file": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 691,
+            "character": 8
+          },
+          "end": {
+            "line": 691,
+            "character": 19
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "oneValueArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 448,
+            "character": 6
+          },
+          "end": {
+            "line": 448,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_config_file_options": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 553,
+            "character": 6
+          },
+          "end": {
+            "line": 553,
+            "character": 26
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "WRITE_BASIC_PACKAGE_VERSION_FILE": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 442,
+            "character": 6
+          },
+          "end": {
+            "line": 442,
+            "character": 38
+          }
+        }
+      },
+      "document_info": "defined macro\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": true
+    },
+    "options": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 447,
+            "character": 6
+          },
+          "end": {
+            "line": 447,
+            "character": 13
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "PACKAGE_INIT": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 496,
+            "character": 6
+          },
+          "end": {
+            "line": 496,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "CVF_VERSION": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+        "range": {
+          "start": {
+            "line": 51,
+            "character": 10
+          },
+          "end": {
+            "line": 51,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+      "is_function": false
+    },
+    "maybe_else": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 699,
+            "character": 8
+          },
+          "end": {
+            "line": 699,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_indent": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 710,
+            "character": 8
+          },
+          "end": {
+            "line": 710,
+            "character": 15
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_config_file": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 594,
+            "character": 10
+          },
+          "end": {
+            "line": 594,
+            "character": 22
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_options": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 615,
+            "character": 6
+          },
+          "end": {
+            "line": 615,
+            "character": 14
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "CONFIGURE_PACKAGE_CONFIG_FILE": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 446,
+            "character": 9
+          },
+          "end": {
+            "line": 446,
+            "character": 38
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": true
+    },
+    "multiValueArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 449,
+            "character": 6
+          },
+          "end": {
+            "line": 449,
+            "character": 20
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "PACKAGE_${var}": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 489,
+            "character": 12
+          },
+          "end": {
+            "line": 489,
+            "character": 26
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "generate_apple_architecture_selection_file": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 614,
+            "character": 9
+          },
+          "end": {
+            "line": 614,
+            "character": 51
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": true
+    },
+    "_single": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 616,
+            "character": 6
+          },
+          "end": {
+            "line": 616,
+            "character": 13
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "installPrefix": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 468,
+            "character": 8
+          },
+          "end": {
+            "line": 468,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "_branch_code": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 644,
+            "character": 6
+          },
+          "end": {
+            "line": 644,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": false
+    },
+    "generate_apple_platform_selection_file": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+        "range": {
+          "start": {
+            "line": 552,
+            "character": 9
+          },
+          "end": {
+            "line": 552,
+            "character": 47
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake/Modules/CMakePackageConfigHelpers.cmake",
+      "is_function": true
+    },
+    "WRITE_BASIC_CONFIG_VERSION_FILE": {
+      "location": {
+        "uri": "file:///usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+        "range": {
+          "start": {
+            "line": 25,
+            "character": 9
+          },
+          "end": {
+            "line": 25,
+            "character": 40
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake/Modules/WriteBasicConfigVersionFile.cmake",
+      "is_function": true
+    }
+  }
+}
